@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val botonLlamada = findViewById<Button>(R.id.llamar)
+        val botonDados = findViewById<Button>(R.id.dados)
         val botonWeb = findViewById<Button>(R.id.google)
         val botonAlarma = findViewById<Button>(R.id.alarma)
         val botonCaptura = findViewById<Button>(R.id.captura)
@@ -43,6 +44,10 @@ class MainActivity : AppCompatActivity() {
 
         botonLlamada.setOnClickListener {
             val llamadaIntent = Intent(this, LlamadaActivity::class.java)
+            startActivity(llamadaIntent)
+        }
+        botonDados.setOnClickListener {
+            val llamadaIntent = Intent(this, DadosActivity::class.java)
             startActivity(llamadaIntent)
         }
 

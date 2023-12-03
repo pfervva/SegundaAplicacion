@@ -1,0 +1,117 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    tools:context=".Ajustes">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:backgroundTint="#FFFFFF"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@id/llAjustes"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FFFFFF"
+            android:gravity="center_horizontal|center_vertical"
+            android:text="Configuración de los dados"
+            android:textColor="#1E1E1E"
+            android:textSize="24sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llAjustes"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="6"
+        android:background="#2B2B2B"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <EditText
+            android:id="@+id/editTextNombreJugador"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:background="#FFFFFF"
+            android:hint="Nombre del jugador"
+            android:inputType="text"
+            android:paddingLeft="10dp"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#2A3640" />
+
+        <EditText
+            android:id="@+id/editTextNumeroTiradas"
+            android:layout_width="300dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:background="#FFFFFF"
+            android:backgroundTint="#FFFFFF"
+            android:hint="Número de tiradas"
+            android:inputType="number"
+            android:paddingLeft="10dp"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#2A3640" />
+
+        <Spinner
+            android:id="@+id/spinnerModoJuego"
+            android:layout_width="300dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:background="#FFFFFF"
+            android:spinnerMode="dropdown"
+            android:paddingLeft="10dp"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#2A3640" />
+
+        <Switch
+            android:id="@+id/switchCartaONumero"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:gravity="center_horizontal"
+            android:text="Carta o Numero"
+            android:textColor="#FFFFFF" />
+
+        <RadioButton
+            android:id="@+id/radioButtonMostrarCarta"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:text="Mostrar la carta"
+            android:textColor="#FFFFFF"
+            app:useMaterialThemeColors="false" />
+
+        <CheckBox
+            android:id="@+id/checkBoxMostrarHistorial"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:gravity="center_horizontal"
+            android:text="Mostrar historial de tiradas"
+            android:textColor="#FFFFFF" />
+
+        <!-- Puedes agregar más elementos según tus necesidades -->
+
+        <Button
+            android:id="@+id/btnGuardarConfiguracion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Guardar Configuración"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"/>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

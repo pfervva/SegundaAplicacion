@@ -17,7 +17,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
         <activity
+            android:name=".Ajustes"
+            android:exported="false" />
+        <activity
             android:name=".LlamadaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DadosActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
