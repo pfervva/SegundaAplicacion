@@ -4,6 +4,7 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplication.databinding.ActivityDadosBinding
 import java.util.concurrent.Executors
@@ -13,8 +14,8 @@ import kotlin.random.Random
 class DadosActivity : AppCompatActivity() {
 
     private lateinit var bindingDados: ActivityDadosBinding
-    private var sum: Int = 0
     private lateinit var sharedPreferences: SharedPreferences
+    private var sum: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,13 +37,14 @@ class DadosActivity : AppCompatActivity() {
 
     private fun game() {
         // Utiliza la configuración obtenida de SharedPreferences
+        val nombreJugador = sharedPreferences.getString("nombreJugador", "") ?: ""
         val numeroTiradas = sharedPreferences.getInt("numeroTiradas", 5)
 
-        // Utiliza el número de tiradas en lugar de 5 fijo
-        scheduleRun(numeroTiradas)
+        // Utiliza el nombre de jugador y el número de tiradas en lugar de valores fijos
+        scheduleRun(nombreJugador, numeroTiradas)
     }
 
-    private fun scheduleRun(numeroTiradas: Int) {
+    private fun scheduleRun(nombreJugador: String, numeroTiradas: Int) {
         val schedulerExecutor = Executors.newSingleThreadScheduledExecutor()
         val msc = 1000
         for (i in 1..numeroTiradas) {
@@ -55,7 +57,7 @@ class DadosActivity : AppCompatActivity() {
         }
 
         schedulerExecutor.schedule({
-            viewResult()
+            viewResult(nombreJugador)
         }, msc * (numeroTiradas + 2).toLong(), TimeUnit.MILLISECONDS)
 
         schedulerExecutor.shutdown()
@@ -86,8 +88,10 @@ class DadosActivity : AppCompatActivity() {
         }
     }
 
-    private fun viewResult() {
-        bindingDados.txtResultado.text = sum.toString()
+    private fun viewResult(nombreJugador: String) {
+        // Calcula la suma de los dados y realiza las acciones necesarias
+        val resultadoTextView: TextView = findViewById(R.id.txt_resultado)
+        resultadoTextView.text = "$nombreJugador salió un $sum"
         println(sum)
     }
 }
