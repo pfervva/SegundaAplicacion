@@ -251,7 +251,7 @@
                     android:orientation="vertical">
 
                     <Button
-                        android:id="@+id/apagar"
+                        android:id="@+id/ajustes"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="22sp"
@@ -269,7 +269,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center_horizontal"
-                        android:text="Adios!"
+                        android:text="Ajustes"
                         android:textColor="#FFFFFF"
                         android:textStyle="bold" />
 

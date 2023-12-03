@@ -1,11 +1,11 @@
 package com.example.myapplication
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplication.databinding.ActivityDadosBinding
-import com.example.myapplication.databinding.ActivityMainBinding
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 import kotlin.random.Random
@@ -14,12 +14,16 @@ class DadosActivity : AppCompatActivity() {
 
     private lateinit var bindingDados: ActivityDadosBinding
     private var sum: Int = 0
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bindingDados = ActivityDadosBinding.inflate(layoutInflater)
         setContentView(bindingDados.root)
         initEvent()
+
+        // Obtén la configuración almacenada en SharedPreferences
+        sharedPreferences = getSharedPreferences("configuracion", MODE_PRIVATE)
     }
 
     private fun initEvent() {
@@ -31,13 +35,17 @@ class DadosActivity : AppCompatActivity() {
     }
 
     private fun game() {
-        scheduleRun()
+        // Utiliza la configuración obtenida de SharedPreferences
+        val numeroTiradas = sharedPreferences.getInt("numeroTiradas", 5)
+
+        // Utiliza el número de tiradas en lugar de 5 fijo
+        scheduleRun(numeroTiradas)
     }
 
-    private fun scheduleRun() {
+    private fun scheduleRun(numeroTiradas: Int) {
         val schedulerExecutor = Executors.newSingleThreadScheduledExecutor()
         val msc = 1000
-        for (i in 1..5) {
+        for (i in 1..numeroTiradas) {
             schedulerExecutor.schedule(
                 {
                     throwDadoInTime()
@@ -48,7 +56,7 @@ class DadosActivity : AppCompatActivity() {
 
         schedulerExecutor.schedule({
             viewResult()
-        }, msc * 7.toLong(), TimeUnit.MILLISECONDS)
+        }, msc * (numeroTiradas + 2).toLong(), TimeUnit.MILLISECONDS)
 
         schedulerExecutor.shutdown()
     }
