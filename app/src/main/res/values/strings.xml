@@ -1,3 +1,14 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string-array name="chistes">
+        <item>¿Qué hace una abeja en el gimnasio? ¡Zum-ba!</item>
+        <item>¿Por qué los pájaros no usan Facebook? Porque ya tienen Twitter.</item>
+        <item>¿Cuál es el colmo de Aladino? Tener mal genio.</item>
+        <item>¿Qué hace una impresora en una parrillada? ¡Saca las hojas asadas!</item>
+        <item>¿Cómo se dice pañuelo en japonés? Sakasaka.</item>
+        <item>¿Qué hace una abeja en el baño? ¡Zum-bidar!</item>
+        <item>¿Cuál es el animal más antiguo? La cebra.</item>
+        <item>¿Cuál es el café más peligroso? El ex-preso.</item>
+        <item>¿Cómo despiden a Tarzán de la escuela? ¡Aplausos, Tarzán!</item>
+        <item>¿Qué hace una abeja en el gimnasio? ¡Zum-ba!</item>
+    </string-array>
 </resources>
