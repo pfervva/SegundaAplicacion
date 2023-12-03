@@ -11,4 +11,12 @@
         <item>Buenas, quería una camiseta de un personaje inspirador. ¿Ghandi?. No, mediani</item>
         <item>¿Sabes por qué no se puede discutir con un DJ?. Porque siempre están cambiando de tema.</item>
     </string-array>
+    <string-array name="numeros_maximos_items">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+    </string-array>
 </resources>

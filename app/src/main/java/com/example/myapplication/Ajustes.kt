@@ -2,9 +2,11 @@ package com.example.myapplication
 
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.RadioButton
+import android.widget.Spinner
 import android.widget.Switch
 import androidx.appcompat.app.AppCompatActivity
 
@@ -15,6 +17,7 @@ class Ajustes : AppCompatActivity() {
     private lateinit var switchDragonBall: Switch
     private lateinit var radioButtonMostrarCarta: RadioButton
     private lateinit var btnSaveConfiguracion: Button
+    private lateinit var spinnerNumeroMaximo: Spinner
     private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,19 +29,33 @@ class Ajustes : AppCompatActivity() {
         switchDragonBall = findViewById(R.id.switchCartaONumero)
         radioButtonMostrarCarta = findViewById(R.id.radioButtonMostrarCarta)
         btnSaveConfiguracion = findViewById(R.id.btnGuardarConfiguracion)
+        spinnerNumeroMaximo = findViewById(R.id.spinnerNumeroMaximo)
 
         sharedPreferences = getSharedPreferences("configuracion", MODE_PRIVATE)
 
-        // Cargar configuración actual y mostrarla en los EditText, Switch y RadioButton
+        // Configura el adaptador para el Spinner con el array de números máximos
+        val adapter = ArrayAdapter.createFromResource(
+            this,
+            R.array.numeros_maximos_items,
+            android.R.layout.simple_spinner_item
+        )
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinnerNumeroMaximo.adapter = adapter
+
+        // Cargar configuración actual y mostrarla en los EditText, Switch, RadioButton y Spinner
         val nombreJugador = sharedPreferences.getString("nombreJugador", "") ?: ""
         val numeroTiradas = sharedPreferences.getInt("numeroTiradas", 5)
         val dragonBallActivado = sharedPreferences.getBoolean("dragonBallActivado", false)
         val mostrarSoloPares = sharedPreferences.getBoolean("mostrarSoloPares", false)
+        val numeroMaximoSeleccionado = sharedPreferences.getInt("numeroMaximoSeleccionado", 6)
 
         editTextNombreJugador.setText(nombreJugador)
         editTextNumeroTiradas.setText(numeroTiradas.toString())
         switchDragonBall.isChecked = dragonBallActivado
         radioButtonMostrarCarta.isChecked = mostrarSoloPares
+
+        val posicionNumeroMaximo = adapter.getPosition(numeroMaximoSeleccionado.toString())
+        spinnerNumeroMaximo.setSelection(posicionNumeroMaximo)
 
         radioButtonMostrarCarta.setOnCheckedChangeListener { _, isChecked ->
             // Aquí puedes aplicar la lógica para mostrar solo números pares
@@ -59,11 +76,15 @@ class Ajustes : AppCompatActivity() {
             val nuevoDragonBallActivado = switchDragonBall.isChecked
             val nuevoMostrarSoloPares = radioButtonMostrarCarta.isChecked
 
+            // Guardar el número máximo seleccionado en el Spinner
+            val numeroMaximoSeleccionado = spinnerNumeroMaximo.selectedItem.toString().toInt()
+
             guardarConfiguracion(
                 nuevoNombreJugador,
                 nuevoNumeroTiradas,
                 nuevoDragonBallActivado,
-                nuevoMostrarSoloPares
+                nuevoMostrarSoloPares,
+                numeroMaximoSeleccionado
             )
         }
     }
@@ -72,16 +93,18 @@ class Ajustes : AppCompatActivity() {
         nombreJugador: String,
         numeroTiradas: Int,
         dragonBallActivado: Boolean,
-        mostrarSoloPares: Boolean
+        mostrarSoloPares: Boolean,
+        numeroMaximoSeleccionado: Int
     ) {
         // Usar un editor para modificar SharedPreferences
         val editor = sharedPreferences.edit()
 
-        // Guardar el nuevo nombre de jugador, el número de tiradas, la configuración de Dragon Ball y la opción de mostrar solo pares
+        // Guardar el nuevo nombre de jugador, el número de tiradas, la configuración de Dragon Ball, la opción de mostrar solo pares y el número máximo seleccionado
         editor.putString("nombreJugador", nombreJugador)
         editor.putInt("numeroTiradas", numeroTiradas)
         editor.putBoolean("dragonBallActivado", dragonBallActivado)
         editor.putBoolean("mostrarSoloPares", mostrarSoloPares)
+        editor.putInt("numeroMaximoSeleccionado", numeroMaximoSeleccionado)
 
         // Aplicar los cambios
         editor.apply()

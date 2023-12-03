@@ -79,6 +79,23 @@
                 android:text="Activar DragonBall?"
                 android:textColor="#FFFFFF" />
 
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10sp"
+                android:layout_marginTop="15sp"
+                android:text="Dime el numero max por dado"
+                android:textColor="#FFFFFF" />
+
+            <Spinner
+                android:id="@+id/spinnerNumeroMaximo"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="16dp"
+                android:background="#F4F1F1"
+                android:entries="@array/chistes" />
+
             <RadioButton
                 android:id="@+id/radioButtonMostrarCarta"
                 android:layout_width="209dp"

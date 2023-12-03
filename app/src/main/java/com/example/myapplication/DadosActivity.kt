@@ -19,9 +19,9 @@ class DadosActivity : AppCompatActivity() {
     private lateinit var sharedPreferences: SharedPreferences
 
     private var sum: Int = 0
+    private var numeroMaximo: Int = 6 // Valor predeterminado
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
         bindingDados = ActivityDadosBinding.inflate(layoutInflater)
         setContentView(bindingDados.root)
@@ -49,6 +49,9 @@ class DadosActivity : AppCompatActivity() {
         val dragonBallActivado = sharedPreferences.getBoolean("dragonBallActivado", false)
 
         // Utiliza el nombre de jugador y el número de tiradas en lugar de valores fijos
+        // Obtén el número máximo seleccionado de las configuraciones
+        numeroMaximo = sharedPreferences.getInt("numeroMaximoSeleccionado", 6)
+
         scheduleRun(nombreJugador, numeroTiradas, dragonBallActivado)
     }
 
@@ -72,7 +75,7 @@ class DadosActivity : AppCompatActivity() {
     }
 
     private fun throwDadoInTime(dragonBallActivado: Boolean) {
-        val numDados = Array(3) { Random.nextInt(1, 7) }
+        val numDados = Array(3) { Random.nextInt(1, numeroMaximo + 1) } // Cambiado el número máximo
         val imageViews: Array<ImageView> = arrayOf(
             bindingDados.imagviewDado1,
             bindingDados.imagviewDado2,
@@ -110,7 +113,6 @@ class DadosActivity : AppCompatActivity() {
     }
 
     private fun viewResult(nombreJugador: String) {
-        // Calcula la suma de los dados y realiza las acciones necesarias
         val resultadoTextView: TextView = findViewById(R.id.txt_resultado)
         resultadoTextView.text = "$nombreJugador salió un $sum"
         println(sum)
