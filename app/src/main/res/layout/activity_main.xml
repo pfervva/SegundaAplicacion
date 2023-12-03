@@ -331,12 +331,13 @@
 
                         </LinearLayout>
 
-                        <ImageView
-                            android:id="@+id/imageView"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            app:srcCompat="@drawable/foto" />
+                        <ProgressBar
+                            android:id="@+id/progressBarChiste"
+                            style="?android:attr/progressBarStyle"
+                            android:layout_width="4dp"
+                            android:layout_height="match_parent"
+                            android:visibility="invisible"
+                            android:layout_weight="1" />
 
                     </LinearLayout>
 

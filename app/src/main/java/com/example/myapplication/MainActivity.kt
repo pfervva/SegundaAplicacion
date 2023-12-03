@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import android.animation.ObjectAnimator
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
@@ -8,8 +9,11 @@ import android.os.Bundle
 import android.os.SystemClock
 import android.provider.AlarmClock
 import android.speech.tts.TextToSpeech
+import android.view.View
+import android.view.animation.LinearInterpolator
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -24,6 +28,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var imageView: ImageView
     private lateinit var textToSpeech: TextToSpeech
+    private lateinit var progressBarChiste: ProgressBar
 
     private var isSpeaking = false
 
@@ -40,6 +45,7 @@ class MainActivity : AppCompatActivity() {
         val botonCaptura = findViewById<Button>(R.id.captura)
         val botonChiste = findViewById<Button>(R.id.chiste)
         imageView = findViewById(R.id.imageView2)
+        progressBarChiste = findViewById(R.id.progressBarChiste)
 
         configureTextToSpeech()
 
@@ -55,7 +61,6 @@ class MainActivity : AppCompatActivity() {
             val llamadaIntent = Intent(this, DadosActivity::class.java)
             startActivity(llamadaIntent)
         }
-
         botonWeb.setOnClickListener {
             val url = "https://www.google.com"
             val webIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
@@ -85,7 +90,6 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "Error al configurar la alarma", Toast.LENGTH_SHORT).show()
             }
         }
-
         botonCaptura.setOnClickListener {
             val captura = captureScreen()
             if (captura != null) {
@@ -99,18 +103,29 @@ class MainActivity : AppCompatActivity() {
                 ).show()
             }
         }
-
         botonChiste.setOnClickListener {
             if (!isSpeaking) {
+                isSpeaking = true
+
+                progressBarChiste.visibility = View.VISIBLE
+
+                startProgressBarAnimation()
+
                 val chistesArray = resources.getStringArray(R.array.chistes)
                 val randomIndex = Random.nextInt(chistesArray.size)
                 val chisteSeleccionado = chistesArray[randomIndex]
                 speakMeDescription(chisteSeleccionado)
 
-                // Simulamos un tiempo de reproducción del chiste (ajusta según sea necesario)
                 GlobalScope.launch(Dispatchers.Main) {
                     delay(600)  // Ajusta el tiempo de reproducción del chiste
                     isSpeaking = false
+
+                    stopProgressBarAnimation()
+
+                    GlobalScope.launch(Dispatchers.Main) {
+                        delay(6000)  // 6 segundos
+                        progressBarChiste.visibility = View.INVISIBLE
+                    }
                 }
             }
         }
@@ -134,6 +149,18 @@ class MainActivity : AppCompatActivity() {
         val captura = Bitmap.createBitmap(vista.drawingCache)
         vista.isDrawingCacheEnabled = false
         return captura
+    }
+
+    private fun startProgressBarAnimation() {
+        progressBarChiste.rotation = 0f
+        val rotate = ObjectAnimator.ofFloat(progressBarChiste, "rotation", 360f)
+        rotate.duration = 600
+        rotate.interpolator = LinearInterpolator()
+        rotate.start()
+    }
+
+    private fun stopProgressBarAnimation() {
+        progressBarChiste.clearAnimation()
     }
 
     override fun onDestroy() {

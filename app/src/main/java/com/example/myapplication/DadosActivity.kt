@@ -1,8 +1,10 @@
 package com.example.myapplication
 
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -15,16 +17,21 @@ class DadosActivity : AppCompatActivity() {
 
     private lateinit var bindingDados: ActivityDadosBinding
     private lateinit var sharedPreferences: SharedPreferences
+
     private var sum: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         bindingDados = ActivityDadosBinding.inflate(layoutInflater)
         setContentView(bindingDados.root)
         initEvent()
 
-        // Obtén la configuración almacenada en SharedPreferences
         sharedPreferences = getSharedPreferences("configuracion", MODE_PRIVATE)
+        val btnAtras = findViewById<Button>(R.id.atras)
+        btnAtras.setOnClickListener {
+            onBackPressed()
+        }
     }
 
     private fun initEvent() {

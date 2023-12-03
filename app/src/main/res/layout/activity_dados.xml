@@ -50,8 +50,8 @@
 
     <TextView
         android:id="@+id/txt_resultado"
-        android:layout_width="371dp"
-        android:layout_height="146dp"
+        android:layout_width="374dp"
+        android:layout_height="115dp"
         android:text="0"
         android:textColor="@color/white"
         android:textSize="45sp"
@@ -62,5 +62,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imagview_dado3"
         app:layout_constraintVertical_bias="0.511" />
+
+    <Button
+        android:id="@+id/atras"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="160dp"
+        android:text="Atras"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_resultado" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
